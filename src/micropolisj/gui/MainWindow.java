@@ -1320,7 +1320,7 @@ public class MainWindow extends JFrame
 	public static String formatGameDate(int cityTime)
 	{
 		Calendar c = Calendar.getInstance();
-		c.set(1800 + cityTime/48,
+		c.set(1900 + cityTime/48,
 			(cityTime%48)/4,
 			(cityTime%4)*7 + 1
 			);

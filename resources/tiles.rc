@@ -56,10 +56,10 @@
 42    terrain@0,672			(bulldozable)(description=#2)
 43    terrain@0,688			(bulldozable)(description=#2)
 # BEGIN RUBBLE (4 frames) #
-44    terrain@0,704     (noburn)(description=#3)
-45    terrain@0,720     (noburn)(description=#3)
-46    terrain@0,736     (noburn)(description=#3)
-47    terrain@0,752     (noburn)(description=#3)
+44    terrain@0,704     (bulldozable)(noburn)(description=#3)
+45    terrain@0,720     (bulldozable)(noburn)(description=#3)
+46    terrain@0,736     (bulldozable)(noburn)(description=#3)
+47    terrain@0,752     (bulldozable)(noburn)(description=#3)
 # BEGIN FLOODING (4 frames) #
 48    terrain@0,768     (noburn)(description=#4)(behavior=FLOOD)
 49    terrain@0,784     (noburn)(description=#4)(behavior=FLOOD)

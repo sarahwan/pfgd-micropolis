@@ -209,7 +209,7 @@ class MapScanner extends TileBehavior
 		boolean powerOn = checkZonePower();
 		city.fireStationCount++;
 		if ((city.cityTime % 8) == 0) {
-			repairZone(POLICESTATION, 3);
+			repairZone(FIRESTATION, 3);
 		}
 
 		int z;

@@ -125,6 +125,7 @@ public class Micropolis
 	int nuclearCount;
 	int seaportCount;
 	int airportCount;
+	int museumCount;
 
 	int totalPop;
 	int lastCityPop;

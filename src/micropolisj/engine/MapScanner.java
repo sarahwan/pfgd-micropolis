@@ -86,7 +86,7 @@ class MapScanner extends TileBehavior
 			doSeaport();
 			return;
 		case MUSEUM:
-			doNewBuilding(); //Call the MUSEUM placeholder function
+			doMuseum(); // Call the MUSEUM function
 			return;
 		default:
 			assert false;
@@ -210,7 +210,7 @@ class MapScanner extends TileBehavior
 	
 	//Placeholder for a new building
 	//Look to the other do<building name>() functions to guidance on what this function should do.
-	void doNewBuilding()
+	void doMuseum()
 	{
 		//Very basic building functionality. Checks for power and does "repair"
 		boolean powerOn = checkZonePower();

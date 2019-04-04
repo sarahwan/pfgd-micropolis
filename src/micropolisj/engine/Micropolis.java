@@ -2626,6 +2626,12 @@ public class Micropolis
 				sendMessage(MicropolisMessage.HIGH_TRAFFIC);
 			}
 			break;
+		case 64:
+			resCap = (resPop > 300 && comPop > 100 && museumCount == 0);
+			if (resCap) {
+				sendMessage(MicropolisMessage.NEED_MUSEUM);
+			}
+			break;
 		default:
 			//nothing
 		}

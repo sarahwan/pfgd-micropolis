@@ -535,6 +535,7 @@ public class Micropolis
 		policeCount = 0;
 		fireStationCount = 0;
 		stadiumCount = 0;
+		museumCount = 0;
 		coalCount = 0;
 		nuclearCount = 0;
 		seaportCount = 0;
@@ -2540,6 +2541,12 @@ public class Micropolis
 				sendMessage(MicropolisMessage.NEED_IND);
 			}
 			break;
+		case 12:
+			resCap = (resPop < 300 && comPop < 100 && museumCount == 0);
+			if (resCap) {
+				sendMessage(MicropolisMessage.NEED_MUSEUM);
+			}
+			break;
 		case 14:
 			if (totalZoneCount > 10 && totalZoneCount * 2 > roadTotal) {
 				sendMessage(MicropolisMessage.NEED_ROADS);
@@ -2624,12 +2631,6 @@ public class Micropolis
 		case 63:
 			if (trafficAverage > 60) {
 				sendMessage(MicropolisMessage.HIGH_TRAFFIC);
-			}
-			break;
-		case 64:
-			resCap = (resPop > 300 && comPop > 100 && museumCount == 0);
-			if (resCap) {
-				sendMessage(MicropolisMessage.NEED_MUSEUM);
 			}
 			break;
 		default:

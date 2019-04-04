@@ -1051,7 +1051,7 @@ public class MainWindow extends JFrame
 		c.gridy++;
 		Box b7 = new Box(BoxLayout.X_AXIS);
 		gridBox.add(b7,c);
-		b7.add(makeToolBtn(MicropolisTool.NEW_BUILDING));
+		b7.add(makeToolBtn(MicropolisTool.MUSEUM));
 
 		// add glue to make all elements align toward top
 		c.gridy++;

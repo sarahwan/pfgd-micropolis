@@ -29,7 +29,7 @@ public enum MicropolisTool
 	POWERPLANT(4, 3000),
 	NUCLEAR(4, 5000),
 	AIRPORT(6, 10000),
-	MUSEUM(3, 4000), // User implemented tool!
+	MUSEUM(4, 4000), // User implemented tool!
 	QUERY(1, 0);
 
 	int size;

@@ -125,6 +125,7 @@ public class Micropolis
 	int nuclearCount;
 	int seaportCount;
 	int airportCount;
+	int museumCount;
 
 	int totalPop;
 	int lastCityPop;
@@ -2623,6 +2624,12 @@ public class Micropolis
 		case 63:
 			if (trafficAverage > 60) {
 				sendMessage(MicropolisMessage.HIGH_TRAFFIC);
+			}
+			break;
+		case 64:
+			resCap = (resPop > 300 && comPop > 100 && museumCount == 0);
+			if (resCap) {
+				sendMessage(MicropolisMessage.NEED_MUSEUM);
 			}
 			break;
 		default:

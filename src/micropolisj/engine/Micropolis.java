@@ -1821,6 +1821,7 @@ public class Micropolis
 		b.roadRequest = (int)Math.round((lastRoadTotal + lastRailTotal * 2) * RLevels[gameLevel]);
 		b.fireRequest = FIRE_STATION_MAINTENANCE * lastFireStationCount;
 		b.policeRequest = POLICE_STATION_MAINTENANCE * lastPoliceCount;
+		b.museumRequest = MUSEUM_MAINTENANCE * lastMuseumCount;
 
 		b.roadFunded = (int)Math.round(b.roadRequest * b.roadPercent);
 		b.fireFunded = (int)Math.round(b.fireRequest * b.firePercent);
@@ -1839,6 +1840,18 @@ public class Micropolis
 				if (yumDuckets >= b.policeFunded)
 				{
 					yumDuckets -= b.policeFunded;
+					if (yumDuckets >= b.museumFunded)
+					{
+						yumDuckets -= b.museumFunded;
+					}
+					else
+					{
+						assert b.museumRequest != 0;
+
+						b.museumFunded = yumDuckets;
+						b.museumPercent = (double)b.museumFunded / (double)b.museumRequest;
+						yumDuckets = 0;
+					}
 				}
 				else
 				{
@@ -1846,6 +1859,8 @@ public class Micropolis
 
 					b.policeFunded = yumDuckets;
 					b.policePercent = (double)b.policeFunded / (double)b.policeRequest;
+					b.museumFunded = 0;
+					b.museumPercent = 0.0;
 					yumDuckets = 0;
 				}
 			}
@@ -1857,6 +1872,8 @@ public class Micropolis
 				b.firePercent = (double)b.fireFunded / (double)b.fireRequest;
 				b.policeFunded = 0;
 				b.policePercent = 0.0;
+				b.museumFunded = 0;
+				b.museumPercent = 0.0;
 				yumDuckets = 0;
 			}
 		}
@@ -1870,6 +1887,8 @@ public class Micropolis
 			b.firePercent = 0.0;
 			b.policeFunded = 0;
 			b.policePercent = 0.0;
+			b.museumFunded = 0;
+			b.museumPercent = 0.0;
 		}
 
 		b.operatingExpenses = b.roadFunded + b.fireFunded + b.policeFunded + b.museumFunded;

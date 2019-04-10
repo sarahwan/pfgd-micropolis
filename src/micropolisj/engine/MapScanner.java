@@ -208,15 +208,20 @@ class MapScanner extends TileBehavior
 		city.powerPlants.add(new CityLocation(xpos, ypos));
 	}
 	
-	//Placeholder for a new building
-	//Look to the other do<building name>() functions to guidance on what this function should do.
+	// Museum Function
 	void doMuseum()
 	{
-		city.museumCount++;
-		//Very basic building functionality. Checks for power and does "repair"
 		boolean powerOn = checkZonePower();
+		city.museumCount++;
 		if ((city.cityTime % 8) == 0) {
 			repairZone(MUSEUM, 4);
+		}
+
+		int z;
+		if (powerOn) {
+			z = city.museumEffect;
+		} else {
+			z = city.museumEffect / 2;
 		}
 	}
 

@@ -136,6 +136,7 @@ public class Micropolis
 	int lastTotalPop;
 	int lastFireStationCount;
 	int lastPoliceCount;
+	int lastMuseumCount;
 
 	int trafficMaxLocationX;
 	int trafficMaxLocationY;
@@ -173,11 +174,13 @@ public class Micropolis
 	public double roadPercent = 1.0;
 	public double policePercent = 1.0;
 	public double firePercent = 1.0;
+	public double museumPercent = 1.0;
 
 	int taxEffect = 7;
 	int roadEffect = 32;
 	int policeEffect = 1000;
 	int fireEffect = 1000;
+	int museumEffect = 1000;
 
 	int cashFlow; //net change in totalFunds in previous year
 
@@ -1733,6 +1736,7 @@ public class Micropolis
 		lastTotalPop = totalPop;
 		lastFireStationCount = fireStationCount;
 		lastPoliceCount = policeCount;
+		lastMuseumCount = museumCount;
 
 		BudgetNumbers b = generateBudget();
 
@@ -1740,6 +1744,7 @@ public class Micropolis
 		budget.roadFundEscrow -= b.roadFunded;
 		budget.fireFundEscrow -= b.fireFunded;
 		budget.policeFundEscrow -= b.policeFunded;
+		budget.museumFundEscrow -= b.museumFunded;
 
 		taxEffect = b.taxRate;
 		roadEffect = b.roadRequest != 0 ?
@@ -1750,6 +1755,9 @@ public class Micropolis
 			1000;
 		fireEffect = b.fireRequest != 0 ?
 			(int)Math.floor(1000.0 * (double)b.fireFunded / (double)b.fireRequest) :
+			1000;
+		museumEffect = b.museumRequest != 0 ?
+				(int)Math.floor(1000.0 * (double)b.museumFunded / (double)b.museumFunded) :
 			1000;
 	}
 
@@ -1765,7 +1773,7 @@ public class Micropolis
 	void collectTax()
 	{
 		int revenue = budget.taxFund / TAXFREQ;
-		int expenses = -(budget.roadFundEscrow + budget.fireFundEscrow + budget.policeFundEscrow) / TAXFREQ;
+		int expenses = -(budget.roadFundEscrow + budget.fireFundEscrow + budget.policeFundEscrow + budget.museumFundEscrow) / TAXFREQ;
 
 		FinancialHistory hist = new FinancialHistory();
 		hist.cityTime = cityTime;
@@ -1782,6 +1790,7 @@ public class Micropolis
 		budget.roadFundEscrow = 0;
 		budget.fireFundEscrow = 0;
 		budget.policeFundEscrow = 0;
+		budget.museumFundEscrow = 0;
 	}
 
 	/** Annual maintenance cost of each police station. */
@@ -1789,6 +1798,9 @@ public class Micropolis
 
 	/** Annual maintenance cost of each fire station. */
 	static final int FIRE_STATION_MAINTENANCE = 100;
+	
+	/** Annual maintenance cost of each museum. */
+	static final int MUSEUM_MAINTENANCE = 50;
 
 	/**
 	 * Calculate the current budget numbers.
@@ -1800,6 +1812,7 @@ public class Micropolis
 		b.roadPercent = Math.max(0.0, roadPercent);
 		b.firePercent = Math.max(0.0, firePercent);
 		b.policePercent = Math.max(0.0, policePercent);
+		b.museumPercent = Math.max(0.0, museumPercent);
 
 		b.previousBalance = budget.totalFunds;
 		b.taxIncome = (int)Math.round(lastTotalPop * landValueAverage / 120 * b.taxRate * FLevels[gameLevel]);
@@ -1812,6 +1825,7 @@ public class Micropolis
 		b.roadFunded = (int)Math.round(b.roadRequest * b.roadPercent);
 		b.fireFunded = (int)Math.round(b.fireRequest * b.firePercent);
 		b.policeFunded = (int)Math.round(b.policeRequest * b.policePercent);
+		b.museumFunded = (int)Math.round(b.museumRequest * b.museumPercent);
 
 		int yumDuckets = budget.totalFunds + b.taxIncome;
 		assert yumDuckets >= 0;
@@ -1858,7 +1872,7 @@ public class Micropolis
 			b.policePercent = 0.0;
 		}
 
-		b.operatingExpenses = b.roadFunded + b.fireFunded + b.policeFunded;
+		b.operatingExpenses = b.roadFunded + b.fireFunded + b.policeFunded + b.museumFunded;
 		b.newBalance = b.previousBalance + b.taxIncome - b.operatingExpenses;
 
 		return b;
@@ -2542,7 +2556,7 @@ public class Micropolis
 			}
 			break;
 		case 12:
-			resCap = (resPop < 300 && comPop < 100 && museumCount == 0);
+			resCap = (resPop > 300 && museumCount == 0);
 			if (resCap) {
 				sendMessage(MicropolisMessage.NEED_MUSEUM);
 			}
@@ -2626,6 +2640,11 @@ public class Micropolis
 		case 60:
 			if (policeEffect < 700 && totalPop > 20) {
 				sendMessage(MicropolisMessage.POLICE_NEED_FUNDING);
+			}
+			break;
+		case 62:
+			if (museumEffect < 700 && totalPop > 20) {
+				sendMessage(MicropolisMessage.MUSEUM_NEED_FUNDING);
 			}
 			break;
 		case 63:

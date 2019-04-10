@@ -38,6 +38,11 @@ public class CityBudget
 	 */
 	int policeFundEscrow;
 
+	/**
+	 * Amount of prepaid museum maintenance (in 1/TAXFREQ's).
+	 */
+	int museumFundEscrow;
+
 	CityBudget(Micropolis city)
 	{
 		this.city = city;

@@ -1170,7 +1170,7 @@ public class Micropolis
 							// Checks if tile is a museum, adds value to terrain if so
 							if (tile == MUSEUM)
 							{
-								qtem[y/2][x/2] += 35;
+								qtem[y/2][x/2] += 50;
 							}
 							if (tile < RUBBLE) //natural land features
 							{

@@ -1167,6 +1167,10 @@ public class Micropolis
 						int tile = getTile(mx, my);
 						if (tile != DIRT)
 						{
+							if (tile == MUSEUM)
+							{
+								qtem[y/2][x/2] += 30;
+							}
 							if (tile < RUBBLE) //natural land features
 							{
 								//inc terrainMem
